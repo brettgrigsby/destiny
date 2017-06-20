@@ -1,0 +1,112 @@
+.App {
+
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 70px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 25px;
+}
+
+.card {
+  height: 150px;
+  border: 1px solid black;
+  flex-shrink: 0;
+  display: flex;
+  padding: 10px;
+}
+
+.card-art {
+  width: 120px;
+  transform: translateY(-19px) translateX(-19px);
+}
+
+.image-crop {
+  height: 80px;
+  overflow: hidden;
+  width: 80px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0px 0px 10px #888888;
+}
+
+.card-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+}
+
+.selectable-list {
+  border: 1px solid black;
+  height: 300px;
+  width: 400px;
+  overflow: scroll;
+}
+
+.selected-character {
+  height: 300px;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.character-card-image {
+  height: 100%;
+}
+
+.character-card-image > img {
+  height: 100%;
+}
+
+.character-picker {
+  display: flex;
+}
+
+.picker {
+  padding: 10px;
+}
+
+.dice {
+  border: 1px solid black;
+  height: 50px;
+  width: 50px;
+  margin-top: 15px;
+}
+
+.selected-die {
+  background-color: grey;
+}
+
+.potential-die {
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dice-options {
+  margin-left: 15px;
+}
