@@ -7,6 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.logCards = this.logCards.bind(this);
+    this.setCharacters = this.setCharacters.bind(this);
     this.state = {
       characters: [],
       currentCharacters: [],
@@ -25,7 +26,6 @@ class App extends Component {
     let events = this.pullTypeFromCards(cards, "event");
     let upgrades = this.pullTypeFromCards(cards, "upgrade");
     this.setState({characters, supports, events, upgrades});
-    this.setState({currentCharacters: [characters[0]]})
   }
 
   pullTypeFromCards(cards, type) {
@@ -59,7 +59,11 @@ class App extends Component {
   }
 
   logCards() {
-    console.log(this.state.upgrades);
+    console.log(this.state.currentCharacters);
+  }
+
+  setCharacters(currentCharacters) {
+    this.setState({currentCharacters});
   }
 
   render() {
@@ -72,7 +76,8 @@ class App extends Component {
           <h1>Character(s)</h1>
           <CharacterPicker 
             characters={this.state.characters}
-            currentCharacters={this.state.currentCharacters} />
+            currentCharacters={this.state.currentCharacters}
+            setCharacters={this.setCharacters} />
         </div>
         <div className="deck-picker">
           <h1>Cards</h1>
