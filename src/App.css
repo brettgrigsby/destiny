@@ -30,17 +30,23 @@
   padding: 25px;
 }
 
-.card {
-  height: 150px;
+.selectable-list {
+  width: 100%;
+  height: 250px;
+  overflow: scroll;
+  display: flex;
+}
+
+.selectable-list-option {
+  height: 200px;
   border: 1px solid black;
   flex-shrink: 0;
   display: flex;
   padding: 10px;
 }
 
-.card-art {
-  width: 120px;
-  transform: translateY(-19px) translateX(-19px);
+.selectable-list-option-art {
+  height: 100%;
 }
 
 .image-crop {
@@ -57,14 +63,6 @@
   display: flex;
   flex-direction: column;
   height: 150px;
-}
-
-.selectable-list {
-  border: 1px solid black;
-  height: 300px;
-  width: 400px;
-  overflow: scroll;
-  flex-shrink: 0;
 }
 
 .selected-character {
@@ -96,6 +94,9 @@
   height: 50px;
   width: 50px;
   margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .selected-die {
@@ -104,9 +105,6 @@
 
 .potential-die {
   background-color: lightblue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .dice-options {

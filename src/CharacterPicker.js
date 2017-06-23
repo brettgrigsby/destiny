@@ -7,7 +7,7 @@ class CharacterPicker extends Component {
         super(props);
         this.updateCharacters = this.updateCharacters.bind(this);
         this.state = {
-            points: 0
+            pointTotal: 30
         }
     }
 
@@ -17,22 +17,45 @@ class CharacterPicker extends Component {
         }
     }
 
+    currentAlignment() {
+        let selectedChar = this.props.currentCharacters[0];
+        if(selectedChar) {
+            return selectedChar.affiliation_code;
+        }
+    }
+
     characterCanBeElite(character) {
         return !!character.points.split("/")[1];
     }
 
-    promoteCharacter(card) {
-        let newChar = Object.assign({}, card);
-        newChar.elite = true;
-        this.updateCharacters(newChar);
+    changeEliteStatus(card, elite) {
+        let characters = Object.assign([], this.props.currentCharacters);
+        let promotedCharacter = characters.find(char => {
+            return char.code === card.code;
+        })
+        promotedCharacter.elite = elite;
+        this.props.setCharacters(characters);
+    }
+
+    demoteCharacter(card) {
+
     }
 
     renderDiceOptions(card) {
-        if(this.characterCanBeElite(card)) {
+        if(this.characterCanBeElite(card) && !card.elite) {
             return(
                 <div className="dice-options">
-                    <div className="potential-die dice" onClick={() => this.promoteCharacter(card)}>
+                    <div className="potential-die dice" onClick={() => this.changeEliteStatus(card, true)}>
                         +
+                    </div>
+                    <div className="selected-die dice"></div>
+                </div>
+            );
+        } else if(this.characterCanBeElite(card) && card.elite) {
+            return(
+                <div className="dice-options">
+                    <div className="selected-die dice" onClick={() => this.changeEliteStatus(card, false)}>
+                        -
                     </div>
                     <div className="selected-die dice"></div>
                 </div>
@@ -66,9 +89,9 @@ class CharacterPicker extends Component {
         }
     }
 
-    getPointTotalForCharacters(characters) {
+    pointsForCharacters() {
         let total = 0;
-        characters.forEach(character => {
+        this.props.currentCharacters.forEach(character => {
             total += this.pointsForCharacter(character)
         });
         return total;
@@ -77,17 +100,26 @@ class CharacterPicker extends Component {
     updateCharacters(character) {
         let newCharacters = Object.assign([], this.props.currentCharacters);
         newCharacters.push(character);
-        let points = this.getPointTotalForCharacters(newCharacters);
-        this.setState({points});
         this.props.setCharacters(newCharacters);
+    }
+
+    availableCharacters() {
+        let availablePoints = this.state.pointTotal - this.pointsForCharacters();
+        let alignment = this.currentAlignment();
+        return this.props.characters.filter(char => {
+            let allowedByPoints = this.pointsForCharacter(char) <= availablePoints;
+            let aligned = true;
+            if(alignment) {aligned = char.affiliation_code === alignment}
+            return allowedByPoints && aligned;
+        })
     }
 
     render() {
         return(
             <div>
-                <h3>Points: {this.state.points}</h3>
+                <h3>Points: {this.pointsForCharacters()}</h3>
                 <div className="character-picker picker">
-                    <SelectableList items={this.props.characters} updateSelected={this.updateCharacters}/>
+                    <SelectableList items={this.availableCharacters()} updateSelected={this.updateCharacters}/>
                     {this.props.currentCharacters.map(card => {
                         return this.renderCharacter(card);
                     })}

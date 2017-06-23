@@ -5,14 +5,8 @@ class SelectableList extends Component {
     renderCard(card) {
         return(
             <div key={card.code}>
-                <div className="card" onClick={() => { this.props.updateSelected(card) } } >
-                    <div className="image-crop">
-                        <img className="card-art" src={card.imagesrc} alt="card art"/>
-                    </div>
-                    <div className="card-info">
-                    <span>{card.name}</span>
-                    <span>{card.text}</span>
-                    </div>
+                <div className="selectable-list-option" onClick={() => { this.props.updateSelected(card) } } >
+                    <img className="selectable-list-option-art" src={card.imagesrc} alt="card art"/>
                 </div>
             </div>
         );
