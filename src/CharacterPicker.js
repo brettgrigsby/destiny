@@ -94,7 +94,7 @@ class CharacterPicker extends Component {
     }
 
     updatePointTotal(event) {
-        let pointTotal = parseInt(event.target.value);
+        let pointTotal = parseInt(event.target.value, 10);
         if(pointTotal) { this.setState({pointTotal}); } else { this.setState({pointTotal: 0})}
     }
 
@@ -108,10 +108,7 @@ class CharacterPicker extends Component {
                     {this.props.currentCharacters.map(card => {
                         return(
                             <SelectedCharacter
-                                image={card.imagesrc}
-                                canBeElite={this.characterCanBeElite(card)}
-                                elite={card.elite}
-                                code={card.code}
+                                character={card}
                                 changeEliteStatus={this.changeEliteStatus}
                                 removeCharacter={this.removeCharacter} />
                         )

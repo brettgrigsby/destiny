@@ -10,19 +10,23 @@ class SelectedCharacter extends Component {
     }
 
     promote() {
-        this.props.changeEliteStatus(this.props.code, true);
+        this.props.changeEliteStatus(this.props.character.code, true);
     }
 
     demote() {
-        this.props.changeEliteStatus(this.props.code, false);
+        this.props.changeEliteStatus(this.props.character.code, false);
+    }
+
+    canBeElite() {
+        return !!this.props.character.points.split("/")[1];
     }
 
     _removeCharacter() {
-        this.props.removeCharacter(this.props.code);
+        this.props.removeCharacter(this.props.character.code);
     }
 
     renderDiceOptions() {
-        if(this.props.canBeElite && !this.props.elite) {
+        if(this.canBeElite() && !this.props.character.elite) {
             return(
                 <div className="dice-options">
                     <div className="potential-die dice" onClick={this.promote}>
@@ -31,7 +35,7 @@ class SelectedCharacter extends Component {
                     <div className="selected-die dice"></div>
                 </div>
             );
-        } else if(this.props.canBeElite && this.props.elite) {
+        } else if(this.canBeElite() && this.props.character.elite) {
             return(
                 <div className="dice-options">
                     <div className="selected-die dice" onClick={this.demote}>
@@ -53,7 +57,7 @@ class SelectedCharacter extends Component {
         return(
             <div className="selected-character">
                 <div className="character-card-image" onClick={this._removeCharacter}>
-                    <img src={this.props.image} alt=""/>
+                    <img src={this.props.character.imagesrc} alt=""/>
                 </div>
                 {this.renderDiceOptions()}
             </div>
