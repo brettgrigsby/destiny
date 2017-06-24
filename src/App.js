@@ -72,18 +72,20 @@ class App extends Component {
         <div className="App-header">
           <h2 onClick={this.logCards}>Destiny Deck Builder</h2>
         </div>
-        <div>
-          <h1>Character(s)</h1>
-          <CharacterPicker 
-            characters={this.state.characters}
-            currentCharacters={this.state.currentCharacters}
-            setCharacters={this.setCharacters} />
-        </div>
-        <div className="deck-picker">
-          <h1>Cards</h1>
-        </div>
-        <div className="battlefield-picker">
-          <h1>Battlefield</h1>
+        <div className="app-body">
+          <div>
+            <h1>Character(s)</h1>
+            <CharacterPicker 
+              characters={this.state.characters}
+              currentCharacters={this.state.currentCharacters}
+              setCharacters={this.setCharacters} />
+          </div>
+          <div className="deck-picker">
+            <h1>Cards</h1>
+          </div>
+          <div className="battlefield-picker">
+            <h1>Battlefield</h1>
+          </div>
         </div>
       </div>
     );

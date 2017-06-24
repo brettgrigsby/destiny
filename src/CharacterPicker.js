@@ -10,6 +10,7 @@ class CharacterPicker extends Component {
         this.changeEliteStatus = this.changeEliteStatus.bind(this);
         this.removeCharacter = this.removeCharacter.bind(this);
         this.updatePointTotal = this.updatePointTotal.bind(this);
+        this.handleAlignmentChange = this.handleAlignmentChange.bind(this);
         this.state = {
             pointTotal: 30,
             alignment: null
@@ -98,19 +99,42 @@ class CharacterPicker extends Component {
         if(pointTotal) { this.setState({pointTotal}); } else { this.setState({pointTotal: 0})}
     }
 
+    handleAlignmentChange(event) {
+        if(event.target.value === "all") {
+            this.setState({alignment: null});
+        } else {
+            this.setState({alignment: event.target.value});
+        }
+    }
+
     render() {
         return(
             <div>
                 <h3>Points: {this.pointsForCharacters()} - Remaining: {this.state.pointTotal - this.pointsForCharacters()}</h3>
                 <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
+                <label>
+                    <input type="radio" value="all" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === null} />
+                    All
+                </label>
+                <label>
+                    <input type="radio" value="villain" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === "villain"} />
+                    Villain
+                </label>
+                <label>
+                    <input type="radio" value="hero" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === "hero"}/>                    
+                    Hero
+                </label>
+                
                 <div className="character-picker picker">
                     <SelectableList items={this.availableCharacters()} updateSelected={this.updateCharacters}/>
-                    {this.props.currentCharacters.map(card => {
+                    {this.props.currentCharacters.map((card, index) => {
                         return(
                             <SelectedCharacter
                                 character={card}
+                                key={index}
                                 changeEliteStatus={this.changeEliteStatus}
-                                removeCharacter={this.removeCharacter} />
+                                removeCharacter={this.removeCharacter}
+                                remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
                         )
                     })}
                 </div>

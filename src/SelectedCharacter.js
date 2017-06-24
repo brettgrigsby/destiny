@@ -18,7 +18,13 @@ class SelectedCharacter extends Component {
     }
 
     canBeElite() {
-        return !!this.props.character.points.split("/")[1];
+        let nonEliteCost = parseInt(this.props.character.points.split("/")[0], 10);
+        let eliteCost = parseInt(this.props.character.points.split("/")[1], 10);
+        if(eliteCost) {
+            return (eliteCost - nonEliteCost) <= this.props.remainingPoints;
+        } else {
+            return false;
+        }
     }
 
     _removeCharacter() {
@@ -35,7 +41,7 @@ class SelectedCharacter extends Component {
                     <div className="selected-die dice"></div>
                 </div>
             );
-        } else if(this.canBeElite() && this.props.character.elite) {
+        } else if(this.props.character.elite) {
             return(
                 <div className="dice-options">
                     <div className="selected-die dice" onClick={this.demote}>
