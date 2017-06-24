@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import CharacterPicker from './CharacterPicker.js';
+import DeckPicker from './DeckPicker.js';
 
 class App extends Component {
 
@@ -9,6 +10,7 @@ class App extends Component {
     this.logCards = this.logCards.bind(this);
     this.setCharacters = this.setCharacters.bind(this);
     this.state = {
+      alignment: null,
       characters: [],
       currentCharacters: [],
       upgrades: [],
@@ -25,7 +27,8 @@ class App extends Component {
     let supports = this.pullTypeFromCards(cards, "support");
     let events = this.pullTypeFromCards(cards, "event");
     let upgrades = this.pullTypeFromCards(cards, "upgrade");
-    this.setState({characters, supports, events, upgrades});
+    let battlefields = this.pullTypeFromCards(cards, "battlefield");
+    this.setState({characters, supports, events, upgrades, battlefields});
   }
 
   pullTypeFromCards(cards, type) {
@@ -66,6 +69,14 @@ class App extends Component {
     this.setState({currentCharacters});
   }
 
+  setAlignment(alignment) {
+    if(alignment === "all") {
+      this.setState({alignment: null});
+    } else {
+      this.setState({alignment});
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -82,6 +93,11 @@ class App extends Component {
           </div>
           <div className="deck-picker">
             <h1>Cards</h1>
+            <DeckPicker
+              supports={this.state.supports}
+              events={this.state.events}
+              upgrades={this.state.upgrades}
+              setAlignment={this.setAlignment} />
           </div>
           <div className="battlefield-picker">
             <h1>Battlefield</h1>
