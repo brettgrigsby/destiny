@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import SelectableList from './SelectableList.js';
+import SelectedCharacter from './SelectedCharacter.js';
 
 class CharacterPicker extends Component {
 
     constructor(props) {
         super(props);
         this.updateCharacters = this.updateCharacters.bind(this);
+        this.changeEliteStatus = this.changeEliteStatus.bind(this);
+        this.removeCharacter = this.removeCharacter.bind(this);
         this.state = {
-            pointTotal: 30
+            pointTotal: 30,
+            alignment: null
         }
     }
 
@@ -21,6 +25,8 @@ class CharacterPicker extends Component {
         let selectedChar = this.props.currentCharacters[0];
         if(selectedChar) {
             return selectedChar.affiliation_code;
+        } else {
+            return this.state.alignment;
         }
     }
 
@@ -28,56 +34,13 @@ class CharacterPicker extends Component {
         return !!character.points.split("/")[1];
     }
 
-    changeEliteStatus(card, elite) {
+    changeEliteStatus(code, elite) {
         let characters = Object.assign([], this.props.currentCharacters);
         let promotedCharacter = characters.find(char => {
-            return char.code === card.code;
+            return char.code === code;
         })
         promotedCharacter.elite = elite;
         this.props.setCharacters(characters);
-    }
-
-    demoteCharacter(card) {
-
-    }
-
-    renderDiceOptions(card) {
-        if(this.characterCanBeElite(card) && !card.elite) {
-            return(
-                <div className="dice-options">
-                    <div className="potential-die dice" onClick={() => this.changeEliteStatus(card, true)}>
-                        +
-                    </div>
-                    <div className="selected-die dice"></div>
-                </div>
-            );
-        } else if(this.characterCanBeElite(card) && card.elite) {
-            return(
-                <div className="dice-options">
-                    <div className="selected-die dice" onClick={() => this.changeEliteStatus(card, false)}>
-                        -
-                    </div>
-                    <div className="selected-die dice"></div>
-                </div>
-            );
-        } else {
-            return(
-                <div className="dice-options">
-                    <div className="selected-die dice"></div>
-                </div>
-            );
-        }
-    }
-
-    renderCharacter(card) {
-        return(
-            <div className="selected-character">
-                <div className="character-card-image">
-                    <img src={card.imagesrc} alt=""/>
-                </div>
-                {this.renderDiceOptions(card)}
-            </div>
-        );
     }
 
     pointsForCharacter(character) {
@@ -103,14 +66,29 @@ class CharacterPicker extends Component {
         this.props.setCharacters(newCharacters);
     }
 
+    removeCharacter(code) {
+        let newCharacters = Object.assign([], this.props.currentCharacters);
+        let characterForRemoval = newCharacters.find(char => {
+            return char.code === code;
+        });
+        let indexForRemoval = newCharacters.indexOf(characterForRemoval);
+        newCharacters.splice(indexForRemoval, 1);
+        this.props.setCharacters(newCharacters);
+    }
+
     availableCharacters() {
         let availablePoints = this.state.pointTotal - this.pointsForCharacters();
         let alignment = this.currentAlignment();
+        let currentUniques = this.props.currentCharacters.reduce((acc, char) => {
+                if(char.is_unique) { acc.push(char.code); }
+                return acc;
+            }, []);
         return this.props.characters.filter(char => {
             let allowedByPoints = this.pointsForCharacter(char) <= availablePoints;
             let aligned = true;
+            let nonIncludedUnique = !currentUniques.includes(char.code)
             if(alignment) {aligned = char.affiliation_code === alignment}
-            return allowedByPoints && aligned;
+            return allowedByPoints && aligned && nonIncludedUnique;
         })
     }
 
@@ -121,7 +99,15 @@ class CharacterPicker extends Component {
                 <div className="character-picker picker">
                     <SelectableList items={this.availableCharacters()} updateSelected={this.updateCharacters}/>
                     {this.props.currentCharacters.map(card => {
-                        return this.renderCharacter(card);
+                        return(
+                            <SelectedCharacter
+                                image={card.imagesrc}
+                                canBeElite={this.characterCanBeElite(card)}
+                                elite={card.elite}
+                                code={card.code}
+                                changeEliteStatus={this.changeEliteStatus}
+                                removeCharacter={this.removeCharacter} />
+                        )
                     })}
                 </div>
             </div>
