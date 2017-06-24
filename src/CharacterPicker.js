@@ -9,6 +9,7 @@ class CharacterPicker extends Component {
         this.updateCharacters = this.updateCharacters.bind(this);
         this.changeEliteStatus = this.changeEliteStatus.bind(this);
         this.removeCharacter = this.removeCharacter.bind(this);
+        this.updatePointTotal = this.updatePointTotal.bind(this);
         this.state = {
             pointTotal: 30,
             alignment: null
@@ -92,10 +93,16 @@ class CharacterPicker extends Component {
         })
     }
 
+    updatePointTotal(event) {
+        let pointTotal = parseInt(event.target.value);
+        if(pointTotal) { this.setState({pointTotal}); } else { this.setState({pointTotal: 0})}
+    }
+
     render() {
         return(
             <div>
-                <h3>Points: {this.pointsForCharacters()}</h3>
+                <h3>Points: {this.pointsForCharacters()} - Remaining: {this.state.pointTotal - this.pointsForCharacters()}</h3>
+                <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
                 <div className="character-picker picker">
                     <SelectableList items={this.availableCharacters()} updateSelected={this.updateCharacters}/>
                     {this.props.currentCharacters.map(card => {
