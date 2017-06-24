@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://swdestinydb.com/api/public/cards/")
+    fetch("https://swdestinydb.com/api/public/cards/")
     .then((response) => response.json())
       .then((cards) => {
         this.processCards(cards);
