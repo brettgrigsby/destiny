@@ -78,6 +78,11 @@ class App extends Component {
         }, [])
       })
 
+    } else {
+      this.setState({
+        alignment: null,
+        colors: []
+      })
     }
     this.setState({currentCharacters});
   }
@@ -102,7 +107,9 @@ class App extends Component {
             <CharacterPicker 
               characters={this.state.characters}
               currentCharacters={this.state.currentCharacters}
-              setCharacters={this.setCharacters} />
+              setCharacters={this.setCharacters}
+              alignment={this.state.alignment}
+              setAlignment={this.setAlignment} />
           </div>
           <div className="deck-picker">
             <h1>Cards</h1>

@@ -131,7 +131,10 @@ class CharacterPicker extends Component {
                 </label>
                 
                 <div className="character-picker picker">
-                    <SelectableList items={this.availableCharacters()} updateSelected={this.updateCharacters}/>
+                    <SelectableList 
+                        items={this.availableCharacters()} 
+                        updateSelected={this.updateCharacters}
+                        remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
                     {this.props.currentCharacters.map((card, index) => {
                         return(
                             <SelectedCharacter

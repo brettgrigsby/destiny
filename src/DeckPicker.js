@@ -12,15 +12,15 @@ class DeckPicker extends Component {
         console.log(upgrade)
     }
 
-    availableUpgrades() {
-        return this.props.upgrades.filter(upgrade => {
+    filterByColorAndAlignment(cards) {
+        return cards.filter(card => {
             let alignmentMatch = true;
             let colorMatch = true;
-            if(this.props.alignment && upgrade.affiliation_code !== "neutral") {
-                alignmentMatch = this.props.alignment === upgrade.affiliation_code;
+            if(this.props.alignment && card.affiliation_code !== "neutral") {
+                alignmentMatch = this.props.alignment === card.affiliation_code;
             }
-            if(this.props.colors.length > 0 && upgrade.faction_code !== "gray") {
-                colorMatch = this.props.colors.includes(upgrade.faction_code);
+            if(this.props.colors.length > 0 && card.faction_code !== "gray") {
+                colorMatch = this.props.colors.includes(card.faction_code);
             }
             return colorMatch && alignmentMatch
         })
@@ -31,7 +31,17 @@ class DeckPicker extends Component {
             <div>
                 <h3> Upgrades: - Events: - Supports: </h3>
                 <h3>Upgrades</h3>
-                <SelectableList items={this.availableUpgrades()} updateSelected={this.updateUpgrades}/>
+                <SelectableList 
+                    items={this.filterByColorAndAlignment(this.props.upgrades)} 
+                    updateSelected={this.updateUpgrades} />
+                <h3>Events</h3>
+                <SelectableList
+                    items={this.filterByColorAndAlignment(this.props.events)}
+                    updateSelected={this.updateUpgrades} />
+                <h3>Supports</h3>
+                <SelectableList
+                    items={this.filterByColorAndAlignment(this.props.supports)}
+                    updateSelected={this.updateUpgrades} />
             </div>
         )
     }
