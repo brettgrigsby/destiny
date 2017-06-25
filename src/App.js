@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import CharacterPicker from './CharacterPicker.js';
 import DeckPicker from './DeckPicker.js';
+import SelectableList from './SelectableList.js';
 
 class App extends Component {
 
@@ -9,6 +10,7 @@ class App extends Component {
     super(props);
     this.logCards = this.logCards.bind(this);
     this.setCharacters = this.setCharacters.bind(this);
+    this.updateBattlefield = this.updateBattlefield.bind(this);
     this.state = {
       alignment: null,
       colors: [],
@@ -19,7 +21,9 @@ class App extends Component {
       supports: [],
       currentSupports: [],
       events: [],
-      currentEvents: []
+      currentEvents: [],
+      battlefields: [],
+      currentBattlefield: []
     }
   }
 
@@ -95,6 +99,10 @@ class App extends Component {
     }
   }
 
+  updateBattlefield(battlefield) {
+    console.log(battlefield);
+  }
+
   render() {
     return (
       <div className="App">
@@ -123,6 +131,9 @@ class App extends Component {
           </div>
           <div className="battlefield-picker">
             <h1>Battlefield</h1>
+            <SelectableList
+              items={this.state.battlefields}
+              updateSelected={this.updateBattlefield} />
           </div>
         </div>
       </div>
