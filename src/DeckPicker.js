@@ -12,12 +12,26 @@ class DeckPicker extends Component {
         console.log(upgrade)
     }
 
+    availableUpgrades() {
+        return this.props.upgrades.filter(upgrade => {
+            let alignmentMatch = true;
+            let colorMatch = true;
+            if(this.props.alignment && upgrade.affiliation_code !== "neutral") {
+                alignmentMatch = this.props.alignment === upgrade.affiliation_code;
+            }
+            if(this.props.colors.length > 0 && upgrade.faction_code !== "gray") {
+                colorMatch = this.props.colors.includes(upgrade.faction_code);
+            }
+            return colorMatch && alignmentMatch
+        })
+    }
+
     render() {
         return(
             <div>
                 <h3> Upgrades: - Events: - Supports: </h3>
                 <h3>Upgrades</h3>
-                <SelectableList items={this.props.upgrades} updateSelected={this.updateUpgrades}/>
+                <SelectableList items={this.availableUpgrades()} updateSelected={this.updateUpgrades}/>
             </div>
         )
     }

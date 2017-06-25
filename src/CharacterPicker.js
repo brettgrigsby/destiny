@@ -63,13 +63,18 @@ class CharacterPicker extends Component {
     }
 
     updateCharacters(character) {
-        let newCharacters = Object.assign([], this.props.currentCharacters);
-        newCharacters.push(character);
+        let newCharacters = this.props.currentCharacters.map(char => {
+            return Object.assign({}, char);
+        });
+        newCharacters.push(Object.assign({}, character));
         this.props.setCharacters(newCharacters);
     }
 
     removeCharacter(code) {
-        let newCharacters = Object.assign([], this.props.currentCharacters);
+        // let newCharacters = Object.assign([], this.props.currentCharacters);
+        let newCharacters = this.props.currentCharacters.map(char => {
+            return Object.assign({}, char);
+        });
         let characterForRemoval = newCharacters.find(char => {
             return char.code === code;
         });

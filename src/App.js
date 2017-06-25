@@ -11,6 +11,7 @@ class App extends Component {
     this.setCharacters = this.setCharacters.bind(this);
     this.state = {
       alignment: null,
+      colors: [],
       characters: [],
       currentCharacters: [],
       upgrades: [],
@@ -25,7 +26,7 @@ class App extends Component {
   processCards(cards) {
     let characters = this.pullTypeFromCards(cards, "character");
     let supports = this.pullTypeFromCards(cards, "support");
-    let events = this.pullTypeFromCards(cards, "event");
+    let events = this.pullTypeFromCards(cards, "event"); 
     let upgrades = this.pullTypeFromCards(cards, "upgrade");
     let battlefields = this.pullTypeFromCards(cards, "battlefield");
     this.setState({characters, supports, events, upgrades, battlefields});
@@ -66,6 +67,18 @@ class App extends Component {
   }
 
   setCharacters(currentCharacters) {
+    if(currentCharacters.length > 0) {
+      this.setState({
+        alignment: currentCharacters[0].affiliation_code,
+        colors: currentCharacters.reduce((acc, char) => {
+          if(acc.indexOf(char.faction_code) === -1) {
+            acc.push(char.faction_code);
+          }
+          return acc;
+        }, [])
+      })
+
+    }
     this.setState({currentCharacters});
   }
 
@@ -81,7 +94,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2 onClick={this.logCards}>Destiny Deck Builder</h2>
+          <h2 onClick={this.logCards}>Destiny Deck Builder - {this.state.alignment} {this.state.colors}</h2>
         </div>
         <div className="app-body">
           <div>
@@ -97,7 +110,9 @@ class App extends Component {
               supports={this.state.supports}
               events={this.state.events}
               upgrades={this.state.upgrades}
-              setAlignment={this.setAlignment} />
+              setAlignment={this.setAlignment}
+              alignment={this.state.alignment}
+              colors={this.state.colors} />
           </div>
           <div className="battlefield-picker">
             <h1>Battlefield</h1>
