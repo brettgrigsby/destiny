@@ -50,6 +50,7 @@
   margin: 5px;
   height: 100px;
   background-color: #eeeeee;
+  overflow: hidden;
 }
 
 .selectable-list-option-art-container {
@@ -177,5 +178,6 @@
 .available-dice {
   height: 20px;
   width: 20px;
-  background-color: black;
+  background-color: #161616;
+  border-radius: 3px;
 }

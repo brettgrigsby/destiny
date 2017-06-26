@@ -39,7 +39,7 @@ class SelectableList extends Component {
                     <div className="selectable-list-option-text-container">
                         <span className="slo-text-title">{card.name}</span>
                         <span className="slo-text-subtitle">{card.subtitle}</span>
-                        <span className="slo-text-card-text">{card.text}</span>
+                        <span dangerouslySetInnerHTML={{__html: card.text}}className="slo-text-card-text"></span>
                     </div>
                 </div>
             </div>
