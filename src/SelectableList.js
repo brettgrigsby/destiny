@@ -9,7 +9,7 @@ class SelectableList extends Component {
     renderAvailableDice(card) {
         if(this.props.remainingPoints) {
             let eliteCost = card.points.split("/")[1];
-            if(eliteCost && parseInt(eliteCost) <= this.props.remainingPoints) {
+            if(eliteCost && parseInt(eliteCost, 10) <= this.props.remainingPoints) {
                 return(
                     <div className="available-dice-container">
                         <div className="available-dice"></div>
