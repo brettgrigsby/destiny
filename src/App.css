@@ -67,9 +67,6 @@
   height: 100%;
   background-color: #eeeeee;
   overflow: hidden;
-}
-
-.selectable-list-option:hover {
   cursor: pointer;
 }
 
@@ -161,9 +158,6 @@
 
 .character-card-image {
   height: 100%;
-}
-
-.character-card-image:hover {
   cursor: pointer;
 }
 
@@ -207,14 +201,11 @@
 }
 
 .potential-die {
-  background-color: rgb(159, 159, 153)
-}
-
-.potential-die:hover {
+  background-color: rgb(159, 159, 153);
   cursor: pointer;
 }
 
-.removable-die:hover {
+.removable-die {
   cursor: pointer;
 }
 
