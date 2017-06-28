@@ -83,6 +83,7 @@ class CharacterPicker extends Component {
         this.props.setCharacters(newCharacters);
     }
 
+
     availableCharacters() {
         let availablePoints = this.state.pointTotal - this.pointsForCharacters();
         let alignment = this.currentAlignment();
@@ -90,13 +91,29 @@ class CharacterPicker extends Component {
                 if(char.is_unique) { acc.push(char.code); }
                 return acc;
             }, []);
-        return this.props.characters.filter(char => {
+        let availableCharacters = this.props.characters.filter(char => {
             let allowedByPoints = this.pointsForCharacter(char) <= availablePoints;
             let aligned = true;
             let nonIncludedUnique = !currentUniques.includes(char.code)
             if(alignment) {aligned = char.affiliation_code === alignment}
             return allowedByPoints && aligned && nonIncludedUnique;
         })
+        return availableCharacters.sort((a, b) => {
+            let aPoints = a.points.split("/").map(val => { return parseInt(val, 10)});
+            let bPoints = b.points.split("/").map(val => { return parseInt(val, 10)});
+            let maxA, maxB;
+            if (aPoints[1] && aPoints[1] <= availablePoints) {
+                maxA = aPoints[1]
+            } else {
+                maxA = aPoints[0]
+            }
+            if (bPoints[1] && bPoints[1] <= availablePoints) {
+                maxB = bPoints[1]
+            } else {
+                maxB = bPoints[0]
+            }
+            return maxB - maxA;
+        });
     }
 
     updatePointTotal(event) {

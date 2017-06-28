@@ -107,7 +107,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2 onClick={this.logCards}>Destiny Deck Builder - {this.state.alignment} {this.state.colors}</h2>
+          <h2 onClick={this.logCards}>Destiny Deck Builder</h2>
         </div>
         <div className="app-body">
           <div>

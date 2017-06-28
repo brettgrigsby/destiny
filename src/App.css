@@ -89,6 +89,7 @@
   border-left: 1px solid black;
   -webkit-flex-shrink: 0;
   flex-shrink: 0;
+  height: 100%;
 }
 
 .red {
@@ -209,15 +210,9 @@
   align-items: center;
   -webkit-justify-content: space-around;
   justify-content: space-around;
-  height: 100px;
+  height: 100%;
   -webkit-flex-shrink: 0;
   flex-shrink: 0;
-}
-
-@media (max-width: 600px) {
-  .available-dice-container {
-    height: 130px;
-  }
 }
 
 .available-dice {
@@ -225,4 +220,9 @@
   width: 20px;
   background-color: #161616;
   border-radius: 3px;
+  color: #cccccc;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

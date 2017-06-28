@@ -10,18 +10,19 @@ class SelectableList extends Component {
 
     renderAvailableDice(card) {
         if(this.props.remainingPoints) {
+            let nonEliteCost = card.points.split("/")[0];
             let eliteCost = card.points.split("/")[1];
             if(eliteCost && parseInt(eliteCost, 10) <= this.props.remainingPoints) {
                 return(
                     <div className="available-dice-container">
-                        <div className="available-dice"></div>
-                        <div className="available-dice"></div>
+                        <div className="available-dice">{nonEliteCost}</div>
+                        <div className="available-dice">{eliteCost}</div>
                     </div>
                 )
             } else {
                 return(
                     <div className="available-dice-container">
-                        <div className="available-dice"></div>
+                        <div className="available-dice">{nonEliteCost}</div>
                     </div>
                 )
             }
