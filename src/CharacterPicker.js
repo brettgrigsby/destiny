@@ -129,7 +129,21 @@ class CharacterPicker extends Component {
         }
     }
 
+    renderCharacterList(availableCharacters) {
+        if(availableCharacters.length) {
+            return(
+                <div className="character-list-container">
+                    <SelectableList 
+                        items={this.availableCharacters()} 
+                        updateSelected={this.updateCharacters}
+                        remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
+                </div>
+            );
+        }
+    }
+
     render() {
+        let availableCharacters = this.availableCharacters();
         return(
             <div>
                 <h3>Points: {this.pointsForCharacters()} - Remaining: {this.state.pointTotal - this.pointsForCharacters()}</h3>
@@ -158,10 +172,7 @@ class CharacterPicker extends Component {
                                 remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
                         )
                     })}
-                    <SelectableList 
-                        items={this.availableCharacters()} 
-                        updateSelected={this.updateCharacters}
-                        remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
+                    {this.renderCharacterList(availableCharacters)}
                 </div>
             </div>
         );

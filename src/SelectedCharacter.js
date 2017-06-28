@@ -44,7 +44,7 @@ class SelectedCharacter extends Component {
         } else if(this.props.character.elite) {
             return(
                 <div className="dice-options">
-                    <div className={"selected-die dice " + this.props.character.faction_code} onClick={this.demote}>
+                    <div className={"selected-die dice removable-die " + this.props.character.faction_code} onClick={this.demote}>
                         -
                     </div>
                     <div className={"selected-die dice " + this.props.character.faction_code}></div>
