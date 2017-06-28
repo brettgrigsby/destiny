@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 class SelectableList extends Component {
 
-    eliteCost(card) {
-
+    constructor(props) {
+        super(props);
+        this.followMouse = this.followMouse.bind(this);
+        this.unfollowMouse = this.unfollowMouse.bind(this);
     }
 
     renderAvailableDice(card) {
@@ -26,10 +28,29 @@ class SelectableList extends Component {
         }
     }
 
+
+
+    followMouse() {
+        document.addEventListener('mousemove', this.showFullArt);
+    }
+
+    unfollowMouse() {
+        document.removeEventListener('mousemove', this.showFullArt);
+    }
+
+    showFullArt(e) {
+        console.log("X:", e.pageX, "Y:", e.pageY);
+    }
+
+
     renderCard(card) {
         return(
-            <div key={card.code}>
-                <div className="selectable-list-option" onClick={() => { this.props.updateSelected(card) } } >
+            <div className="selectable-list-option-container" key={card.code}>
+                <div 
+                    className="selectable-list-option" 
+                    onClick={() => { this.props.updateSelected(card) } }
+                    onMouseEnter={this.followMouse}
+                    onMouseLeave={this.unfollowMouse} >
                     <div className="selectable-list-option-art-container">
                         <img className="selectable-list-option-art" src={card.imagesrc} alt="card art"/>
                     </div>
