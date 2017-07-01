@@ -11,9 +11,11 @@ class CharacterPicker extends Component {
         this.removeCharacter = this.removeCharacter.bind(this);
         this.updatePointTotal = this.updatePointTotal.bind(this);
         this.handleAlignmentChange = this.handleAlignmentChange.bind(this);
+        this.updateTextFilter = this.updateTextFilter.bind(this);
         this.state = {
             pointTotal: 30,
-            alignment: null
+            alignment: null,
+            textFilter: ""
         }
     }
 
@@ -121,6 +123,11 @@ class CharacterPicker extends Component {
         if(pointTotal) { this.setState({pointTotal}); } else { this.setState({pointTotal: 0})}
     }
 
+    updateTextFilter(event) {
+        let textFilter = event.target.value;
+        this.setState({textFilter});
+    }
+
     handleAlignmentChange(event) {
         if(event.target.value === "all") {
             this.setState({alignment: null});
@@ -136,7 +143,8 @@ class CharacterPicker extends Component {
                     <SelectableList 
                         items={this.availableCharacters()} 
                         updateSelected={this.updateCharacters}
-                        remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
+                        remainingPoints={this.state.pointTotal - this.pointsForCharacters()}
+                        textFilter={this.state.textFilter} />
                 </div>
             );
         }
@@ -148,6 +156,7 @@ class CharacterPicker extends Component {
             <div>
                 <h3>Points: {this.pointsForCharacters()} - Remaining: {this.state.pointTotal - this.pointsForCharacters()}</h3>
                 <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
+                <input type="text" value={this.state.textFilter} onChange={this.updateTextFilter}/>
                 <label>
                     <input type="radio" value="all" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === null} />
                     All
@@ -162,16 +171,18 @@ class CharacterPicker extends Component {
                 </label>
                 
                 <div className="character-picker picker">
-                    {this.props.currentCharacters.map((card, index) => {
-                        return(
-                            <SelectedCharacter
-                                character={card}
-                                key={index}
-                                changeEliteStatus={this.changeEliteStatus}
-                                removeCharacter={this.removeCharacter}
-                                remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
-                        )
-                    })}
+                    <div className="selected-characters-container">
+                        {this.props.currentCharacters.map((card, index) => {
+                            return(
+                                <SelectedCharacter
+                                    character={card}
+                                    key={index}
+                                    changeEliteStatus={this.changeEliteStatus}
+                                    removeCharacter={this.removeCharacter}
+                                    remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
+                            )
+                        })}
+                    </div>
                     {this.renderCharacterList(availableCharacters)}
                 </div>
             </div>

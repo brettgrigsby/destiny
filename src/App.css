@@ -166,6 +166,10 @@
 }
 
 .character-picker {
+
+}
+
+.selected-characters-container {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-wrap: wrap;
@@ -176,9 +180,10 @@
   height: 500px;
   overflow: scroll;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 1px solid rgb(168, 33, 20);
   padding: 10px;
   max-width: 1230px;
+  background-color: white;
 }
 
 .picker {
@@ -247,7 +252,7 @@
 
 .option-full-art {
   position: absolute;
-  animation: fadein 1.2s;
+  animation: fadein 2s;
   box-shadow: 2px 2px 20px 5px #000000;
   border-radius: 15px;
   overflow: hidden;
