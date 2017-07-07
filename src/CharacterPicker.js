@@ -139,7 +139,7 @@ class CharacterPicker extends Component {
     renderCharacterList(availableCharacters) {
         if(availableCharacters.length) {
             return(
-                <div className="character-list-container">
+                <div className="character-list-container" id="character-picker" onWheel={this._onWheel}>
                     <SelectableList 
                         items={this.availableCharacters()} 
                         updateSelected={this.updateCharacters}
@@ -148,6 +148,14 @@ class CharacterPicker extends Component {
                 </div>
             );
         }
+    }
+
+    _onWheel(e) {
+        let element = document.getElementById('character-picker');
+        let change = e.nativeEvent.deltaY;
+        element.scrollTop += change;
+        e.preventDefault();
+
     }
 
     render() {
