@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DefaultArtSrc from './images/artworkUnavailable.jpg';
 
 class SelectedCharacter extends Component {
 
@@ -63,7 +64,7 @@ class SelectedCharacter extends Component {
         return(
             <div className="selected-character">
                 <div className="character-card-image" onClick={this._removeCharacter}>
-                    <img src={this.props.character.imagesrc} alt=""/>
+                    <img src={this.props.character.imagesrc || DefaultArtSrc} alt=""/>
                 </div>
                 {this.renderDiceOptions()}
             </div>

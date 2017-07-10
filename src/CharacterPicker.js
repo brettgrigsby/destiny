@@ -65,6 +65,7 @@ class CharacterPicker extends Component {
     }
 
     updateCharacters(character) {
+        document.getElementById('character-picker').scrollTop = 0;
         let newCharacters = this.props.currentCharacters.map(char => {
             return Object.assign({}, char);
         });
@@ -139,7 +140,7 @@ class CharacterPicker extends Component {
     renderCharacterList(availableCharacters) {
         if(availableCharacters.length) {
             return(
-                <div className="character-list-container" id="character-picker" onWheel={this._onWheel}>
+                <div className="character-list-container" id="character-picker">
                     <SelectableList 
                         items={this.availableCharacters()} 
                         updateSelected={this.updateCharacters}
@@ -150,21 +151,27 @@ class CharacterPicker extends Component {
         }
     }
 
-    _onWheel(e) {
-        let element = document.getElementById('character-picker');
-        let change = e.nativeEvent.deltaY;
-        element.scrollTop += change;
-        e.preventDefault();
+    // _onWheel(e) {
+    //     let element = document.getElementById('character-picker');
+    //     let change = e.nativeEvent.deltaY;
+    //     element.scrollTop += change;
+    //     e.preventDefault();
 
-    }
+    // }
 
     render() {
         let availableCharacters = this.availableCharacters();
         return(
             <div>
                 <h3>Points: {this.pointsForCharacters()} - Remaining: {this.state.pointTotal - this.pointsForCharacters()}</h3>
-                <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
-                <input type="text" value={this.state.textFilter} onChange={this.updateTextFilter}/>
+                <label>
+                    Point Total:
+                    <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
+                </label>
+                <label>
+                    Search:
+                    <input type="text" value={this.state.textFilter} onChange={this.updateTextFilter}/>
+                </label>
                 <label>
                     <input type="radio" value="all" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === null} />
                     All
@@ -179,19 +186,22 @@ class CharacterPicker extends Component {
                 </label>
                 
                 <div className="character-picker picker">
-                    <div className="selected-characters-container">
-                        {this.props.currentCharacters.map((card, index) => {
-                            return(
-                                <SelectedCharacter
-                                    character={card}
-                                    key={index}
-                                    changeEliteStatus={this.changeEliteStatus}
-                                    removeCharacter={this.removeCharacter}
-                                    remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
-                            )
-                        })}
-                    </div>
                     {this.renderCharacterList(availableCharacters)}
+                    <div className="selected-characters-section">
+                        <h2>Selected Characters</h2>
+                        <div className="selected-characters-container">
+                            {this.props.currentCharacters.map((card, index) => {
+                                return(
+                                    <SelectedCharacter
+                                        character={card}
+                                        key={index}
+                                        changeEliteStatus={this.changeEliteStatus}
+                                        removeCharacter={this.removeCharacter}
+                                        remainingPoints={this.state.pointTotal - this.pointsForCharacters()} />
+                                )
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

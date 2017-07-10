@@ -42,9 +42,8 @@
 
 .selectable-list-option-container {
   width: 100%;
-  height: 130px;
+  min-height: 130px;
   margin: 5px 0;
-  
 }
 
 @media (min-width: 600px) {
@@ -148,12 +147,18 @@
 }
 
 .selected-character {
-  height: 300px;
+  height: 250px;
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: flex-end;
   align-items: flex-end;
   padding: 10px;
+}
+
+@media (min-width: 600px) {
+  .selected-character {
+    height: 300px
+  }
 }
 
 .character-card-image {
@@ -169,6 +174,27 @@
 
 }
 
+@media (min-width: 600px) {
+  .character-picker {
+    display: flex;
+  }
+}
+
+.selected-characters-section {
+  padding: 15px;
+  border: 1px solid rgb(173, 26, 54);
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+@media (min-width: 600px) {
+  .selected-characters-section {
+    margin-left: 15px;
+    min-width: 450px;
+    margin-top: 0;
+  }
+}
+
 .selected-characters-container {
   display: -webkit-flex;
   display: flex;
@@ -177,19 +203,18 @@
 }
 
 .character-list-container {
-  height: 500px;
+  height: 600px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   border-radius: 10px;
   border: 1px solid rgb(168, 33, 20);
   padding: 10px;
-  max-width: 1230px;
+  max-width: 410px;
   background-color: white;
-  margin: auto;
 }
 
 .picker {
-  padding: 10px;
+
 }
 
 .dice {

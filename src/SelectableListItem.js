@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DefaultArtSrc from './images/artworkUnavailable.jpg';
 
 class SelectableListItem extends Component {
 
@@ -71,7 +72,7 @@ class SelectableListItem extends Component {
                     onMouseEnter={this.followMouse}
                     onMouseLeave={this.unfollowMouse} >
                     <div className="selectable-list-option-art-container">
-                        <img className="selectable-list-option-art" src={this.props.card.imagesrc} alt="card art"/>
+                        <img className="selectable-list-option-art" src={this.props.card.imagesrc || DefaultArtSrc} alt="card art"/>
                     </div>
                     <div className={"selectable-list-option-faction-container " + this.props.card.faction_code}>
                         {this.renderAvailableDice()}
@@ -85,7 +86,7 @@ class SelectableListItem extends Component {
                 <div 
                     className="option-full-art"
                     style={{display: this.state.fullArtDisplay, top: this.state.y, left: this.state.x}}>
-                    <img src={this.props.card.imagesrc} alt="full card art"/>
+                    <img src={this.props.card.imagesrc || DefaultArtSrc} alt="full card art"/>
                 </div>
             </div>
         );
