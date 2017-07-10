@@ -22,6 +22,18 @@
   padding: 15px;
 }
 
+.character-filter-options {
+  margin-bottom: 15px;
+}
+
+.character-filter-options > label {
+  margin-right: 15px;
+}
+
+.character-filter-options > label > input {
+  margin-left: 5px;
+}
+
 .cards-list {
   display: -webkit-flex;
   display: flex;
@@ -44,6 +56,11 @@
   width: 100%;
   height: 130px;
   margin: 5px 0;
+  cursor: pointer;
+}
+
+.selectable-list-option-container:hover {
+  cursor: pointer;
 }
 
 @media (min-width: 600px) {
@@ -66,7 +83,6 @@
   height: 100%;
   background-color: #eeeeee;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .selectable-list-option-art-container {

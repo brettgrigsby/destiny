@@ -164,27 +164,28 @@ class CharacterPicker extends Component {
         return(
             <div>
                 <h3>Points: {this.pointsForCharacters()} - Remaining: {this.state.pointTotal - this.pointsForCharacters()}</h3>
-                <label>
-                    Point Total:
-                    <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
-                </label>
-                <label>
-                    Search:
-                    <input type="text" value={this.state.textFilter} onChange={this.updateTextFilter}/>
-                </label>
-                <label>
-                    <input type="radio" value="all" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === null} />
-                    All
-                </label>
-                <label>
-                    <input type="radio" value="villain" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === "villain"} />
-                    Villain
-                </label>
-                <label>
-                    <input type="radio" value="hero" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === "hero"}/>                    
-                    Hero
-                </label>
-                
+                <div className="character-filter-options">
+                    <label>
+                        Point Total:
+                        <input type="text" value={this.state.pointTotal} onChange={this.updatePointTotal}/>
+                    </label>
+                    <label>
+                        Search:
+                        <input type="text" value={this.state.textFilter} onChange={this.updateTextFilter}/>
+                    </label>
+                    <label>
+                        <input type="radio" value="all" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === null} />
+                        All
+                    </label>
+                    <label>
+                        <input type="radio" value="villain" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === "villain"} />
+                        Villain
+                    </label>
+                    <label>
+                        <input type="radio" value="hero" onChange={this.handleAlignmentChange} checked={this.currentAlignment() === "hero"}/>                    
+                        Hero
+                    </label>
+                </div>
                 <div className="character-picker picker">
                     {this.renderCharacterList(availableCharacters)}
                     <div className="selected-characters-section">
